@@ -5,7 +5,6 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const userModel = require('../model/usermodel');
 passport.use(new GoogleStrategy({
     clientID:process.env.GOOGLE_CLIENT_ID,
-   
     clientSecret:process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: "http://localhost:2222/auth/google/callback"
   },
@@ -20,9 +19,11 @@ passport.use(new GoogleStrategy({
   //store data
    if(!user){
        user=await userModel.create({
+         userName:profile._json.userName,
            email:profile._json.email,
            password: uuidv4(),
-           role:["customer"]
+           cpassword:uuidv4(),
+           mobilephone:profile._json. mobilephone,   
        })
    }  
    
